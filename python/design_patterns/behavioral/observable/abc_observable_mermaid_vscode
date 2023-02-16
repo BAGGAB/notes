@@ -19,7 +19,7 @@ Handler: set_next()*
 Handler: handle()*
 
 
-AbstractHandler: _next_handler
+AbstractHandler: _next_handler Handler
 AbstractHandler: set_next()
 AbstractHandler: handle()*
 

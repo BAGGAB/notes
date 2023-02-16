@@ -1,0 +1,29 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+State <|-- ConcreteStateA
+State <|-- ConcreteStateB
+Context o-- State
+ConcreteStateA --> ConcreteStateB : handle1()
+ConcreteStateB --> ConcreteStateA : handle2()
+
+Context: _state
+Context: __init__(State)
+Context: transition_to(State)
+Context: request1()
+Context: request2()
+
+State: context()
+State: context(context) setter
+State: handle1()*
+State: handle2()*
+
+ConcreteStateA: handle1()
+ConcreteStateA: handle2()
+ConcreteStateB: handle1()
+ConcreteStateB: handle2()
+
+```
