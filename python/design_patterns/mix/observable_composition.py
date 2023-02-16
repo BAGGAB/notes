@@ -16,15 +16,20 @@ class Observable:
 
 
 
-class HumanCompositions(ABC):
+class EntityCompositions(ABC):
+    observers =  []
     @abstractmethod
-    def process_event(self, observable, *args, **kwargs):
+    def notify_entity(self, observable, *args, **kwargs):
         '''Notify'''
-
-
+    def addComposition(self, observable: Observable):
+        self.observers.append(observable)
+    def __del__(self):
+        for observer in range(len(self.observers)):
+            self.observers[0].delete()
+            self.observers.remove(self.observers[0])
 
 class Observer:
-    notify_to: HumanCompositions
+    notify_to: EntityCompositions
     observable: Observable
     def __init__(self, observable,person1):
         self.observable = observable
@@ -32,7 +37,7 @@ class Observer:
         self.notify_to = person1
 
     def process_event(self, observable, *args, **kwargs):
-        self.notify_to.process_event(self, observable, *args, **kwargs)
+        self.notify_to.notify_entity(self, observable, *args, **kwargs)
     
     def delete(self):
         self.observable.unregister_observer(self)
@@ -64,23 +69,19 @@ class Hobby(Observer):
 
 
 
-class Human(HumanCompositions):
-    observers =  []
+class Human(EntityCompositions):
+
     def __init__(self):
         print('Class Human Created')
         # observable.register_observer(self)
         # self.observables =  [Observer]
 
-    def addComposition(self, observable: Observable):
-        self.observers.append(observable)
 
-    def process_event(self, observable, *args, **kwargs):
+    def notify_entity(self, observable, *args, **kwargs):
         print("Human Got", args, kwargs, "From", observable)
 
     def __del__(self):
-        for observer in range(len(self.observers)):
-            self.observers[0].delete()
-            self.observers.remove(self.observers[0])
+        super().__del__()
         print('Destructor called, HumanCompositions deleted.')
 
 

@@ -1,0 +1,49 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+
+EntityCompositions <|-- Human 
+
+
+Observable "1" --o  "1"  Observer
+Observer <|-- Live 
+Observer <|-- Job 
+Observer <|-- Hobby 
+EntityCompositions "1" --o  "1..*" Observer 
+
+Observable --> Live : process_event()
+Observable --> Job : process_event()
+Observable --> Hobby : process_event()
+
+Live --> Human : notify_entity()
+Job --> Human : notify_entity()
+Hobby --> Human : notify_entity()
+
+Observer: notify_to EntityCompositions
+Observer: observable Observable
+Observer: __init__(Observable,EntityCompositions)
+Observer: process_event()
+Observer: delete()
+Observer: __del__()
+
+
+Live: process_event()
+Job: process_event()
+Hobby: process_event()
+EntityCompositions : observers[]
+EntityCompositions: notify_entity()*
+EntityCompositions : addComposition()
+
+Human : __init__()
+Human : notify_entity()
+Human : __del__()
+
+
+Observable: __init__()
+Observable: register_observer()
+Observable: unregister_observer()
+Observable: notify_observers()
+```
