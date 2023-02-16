@@ -1,0 +1,37 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+
+EventManager <|-- ConcreteEventManager 
+Observer <|-- ConcreteObserverA 
+Observer <|-- ConcreteObserverB 
+ConcreteEventManager "1" *-- "1..*" Observer
+
+
+<<Interface>> EventManager
+EventManager : attach()*
+EventManager : detach()*
+EventManager : notify()*
+EventManager : _observers[Observer]
+
+
+<<Class>> ConcreteEventManager
+ConcreteEventManager : attach()
+ConcreteEventManager : detach()
+ConcreteEventManager : notify()
+note for ConcreteEventManager "notify():\nforeach in _observers: update()\nattach():\nappend to _observers\ndetach():\nremove from _observers"
+
+
+<<Interface>> Observer
+Observer : update()*
+
+
+ConcreteObserverA : update()
+
+
+ConcreteObserverB : update()
+
+```

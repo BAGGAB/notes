@@ -1,0 +1,31 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+Handler <|-- AbstractHandler
+AbstractHandler <|-- MonkeyHandler
+AbstractHandler <|-- SquirrelHandler
+AbstractHandler <|-- DogHandler
+Client --> MonkeyHandler: set_next(SquirrelHandler)
+Client --> SquirrelHandler: set_next(DogHandler)
+MonkeyHandler --> SquirrelHandler: _next_handler(SquirrelHandler)
+SquirrelHandler --> DogHandler: _next_handler(DogHandler)
+
+
+<<Interface>> Handler
+Handler: set_next()*
+Handler: handle()*
+
+
+AbstractHandler: _next_handler
+AbstractHandler: set_next()
+AbstractHandler: handle()*
+
+MonkeyHandler: handle()
+SquirrelHandler: handle()
+DogHandler: handle()
+
+Client: main()
+```

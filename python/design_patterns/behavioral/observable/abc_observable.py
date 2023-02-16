@@ -1,26 +1,39 @@
-#refactoring.guru
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from random import randrange
 from typing import List
 
 
-class Subject(ABC):
+class EventManager(ABC):
     """
-    The Subject interface declares a set of methods for managing subscribers.
+    The EventManager interface declares a set of methods for managing subscribers.
+    """
+    """
+    The EventManager owns some important state and notifies observers when the state
+    changes.
+    """
+    _state: int = None
+    """
+    For the sake of simplicity, the EventManager's state, essential to all
+    subscribers, is stored in this variable.
     """
 
+    _observers: List[Observer] = []
+    """
+    List of subscribers. In real life, the list of subscribers can be stored
+    more comprehensively (categorized by event type, etc.).
+    """
     @abstractmethod
     def attach(self, observer: Observer) -> None:
         """
-        Attach an observer to the subject.
+        Attach an observer to the EventManager.
         """
         pass
 
     @abstractmethod
     def detach(self, observer: Observer) -> None:
         """
-        Detach an observer from the subject.
+        Detach an observer from the EventManager.
         """
         pass
 
@@ -32,23 +45,7 @@ class Subject(ABC):
         pass
 
 
-class ConcreteSubject(Subject):
-    """
-    The Subject owns some important state and notifies observers when the state
-    changes.
-    """
-
-    _state: int = None
-    """
-    For the sake of simplicity, the Subject's state, essential to all
-    subscribers, is stored in this variable.
-    """
-
-    _observers: List[Observer] = []
-    """
-    List of subscribers. In real life, the list of subscribers can be stored
-    more comprehensively (categorized by event type, etc.).
-    """
+class ConcreteEventManager(EventManager):
 
     def attach(self, observer: Observer) -> None:
         print("Subject: Attached an observer.")
@@ -91,7 +88,7 @@ class Observer(ABC):
     """
 
     @abstractmethod
-    def update(self, subject: Subject) -> None:
+    def update(self, subject: EventManager) -> None:
         """
         Receive update from subject.
         """
@@ -105,13 +102,13 @@ attached to.
 
 
 class ConcreteObserverA(Observer):
-    def update(self, subject: Subject) -> None:
+    def update(self, subject: EventManager) -> None:
         if subject._state < 3:
             print("ConcreteObserverA: Reacted to the event")
 
 
 class ConcreteObserverB(Observer):
-    def update(self, subject: Subject) -> None:
+    def update(self, subject: EventManager) -> None:
         if subject._state == 0 or subject._state >= 2:
             print("ConcreteObserverB: Reacted to the event")
 
@@ -119,17 +116,17 @@ class ConcreteObserverB(Observer):
 if __name__ == "__main__":
     # The client code.
 
-    subject = ConcreteSubject()
+    EventManager = ConcreteEventManager()
 
     observer_a = ConcreteObserverA()
-    subject.attach(observer_a)
+    EventManager.attach(observer_a)
 
     observer_b = ConcreteObserverB()
-    subject.attach(observer_b)
+    EventManager.attach(observer_b)
 
-    subject.some_business_logic()
-    subject.some_business_logic()
+    EventManager.some_business_logic()
+    EventManager.some_business_logic()
 
-    subject.detach(observer_a)
+    EventManager.detach(observer_a)
 
-    subject.some_business_logic()
+    EventManager.some_business_logic()
