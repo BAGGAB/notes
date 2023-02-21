@@ -33,12 +33,15 @@ Observer: __del__()
 Live: process_event()
 Job: process_event()
 Hobby: process_event()
-EntityCompositions : observers[]
 EntityCompositions: notify_entity()*
 EntityCompositions : addComposition()
+EntityCompositions : removeComposition()
 
+Human : observers[]
 Human : __init__()
 Human : notify_entity()
+Human : addComposition()
+Human : removeComposition()
 Human : __del__()
 
 

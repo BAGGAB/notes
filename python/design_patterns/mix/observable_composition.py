@@ -17,16 +17,14 @@ class Observable:
 
 
 class EntityCompositions(ABC):
-    observers =  []
+    
     @abstractmethod
     def notify_entity(self, observable, *args, **kwargs):
         '''Notify'''
     def addComposition(self, observable: Observable):
-        self.observers.append(observable)
-    def __del__(self):
-        for observer in range(len(self.observers)):
-            self.observers[0].delete()
-            self.observers.remove(self.observers[0])
+        '''Add Observer'''
+    def removeComposition(self, observable: Observable):
+        '''Add Observer'''
 
 class Observer:
     notify_to: EntityCompositions
@@ -70,18 +68,25 @@ class Hobby(Observer):
 
 
 class Human(EntityCompositions):
-
+    observers =  []
     def __init__(self):
         print('Class Human Created')
         # observable.register_observer(self)
         # self.observables =  [Observer]
 
+    def addComposition(self, observable: Observable):
+        self.observers.append(observable)
 
     def notify_entity(self, observable, *args, **kwargs):
         print("Human Got", args, kwargs, "From", observable)
 
+    def removeComposition(self, observable: Observable):
+        self.observers.remove(observable)
+
     def __del__(self):
-        super().__del__()
+        for observer in range(len(self.observers)):
+            self.observers[0].delete()
+            self.removeComposition(self.observers[0])
         print('Destructor called, HumanCompositions deleted.')
 
 
