@@ -8,21 +8,7 @@ class EventManager(ABC):
     """
     The EventManager interface declares a set of methods for managing subscribers.
     """
-    """
-    The EventManager owns some important state and notifies observers when the state
-    changes.
-    """
-    _state: int = None
-    """
-    For the sake of simplicity, the EventManager's state, essential to all
-    subscribers, is stored in this variable.
-    """
 
-    _observers: List[Observer] = []
-    """
-    List of subscribers. In real life, the list of subscribers can be stored
-    more comprehensively (categorized by event type, etc.).
-    """
     @abstractmethod
     def attach(self, observer: Observer) -> None:
         """
@@ -46,7 +32,21 @@ class EventManager(ABC):
 
 
 class ConcreteEventManager(EventManager):
+    """
+    The EventManager owns some important state and notifies observers when the state
+    changes.
+    """
+    _state: int = None
+    """
+    For the sake of simplicity, the EventManager's state, essential to all
+    subscribers, is stored in this variable.
+    """
 
+    _observers: List[Observer] = []
+    """
+    List of subscribers. In real life, the list of subscribers can be stored
+    more comprehensively (categorized by event type, etc.).
+    """
     def attach(self, observer: Observer) -> None:
         print("Subject: Attached an observer.")
         self._observers.append(observer)
