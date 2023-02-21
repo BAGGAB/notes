@@ -1,0 +1,31 @@
+```mermaid
+---
+title: Mediator Design Pattern Example
+---
+
+classDiagram
+
+Mediator~ABC~ <|.. ConcreteMediator~Mediator~ 
+Component1~BaseComponent~ <|-- BaseComponent
+Component2~BaseComponent~ <|-- BaseComponent
+ConcreteMediator *-- Component1
+ConcreteMediator *-- Component2
+
+<<Interface>> Mediator
+Mediator: notify()*
+
+ConcreteMediator: __init__(Component1,Component2)
+ConcreteMediator: notify(sender, event)
+
+BaseComponent: _mediator
+BaseComponent: __init__()
+BaseComponent: set_mediator(Mediator) 
+BaseComponent: get_mediator() Mediator
+
+
+Component1: do_a()
+Component1: do_b()
+Component2: do_c()
+Component2: do_d()
+
+```
