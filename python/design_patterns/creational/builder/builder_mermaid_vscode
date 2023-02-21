@@ -1,0 +1,46 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+ConcreteBuilder1 ..|> Builder
+ConcreteBuilder2 ..|> Builder
+Product1 <-- ConcreteBuilder1
+Product2 <-- ConcreteBuilder2
+Director --> Builder
+
+<<Interface>> Builder
+Builder: product()*
+Builder: produce_part_a()*
+Builder: produce_part_b()*
+Builder: produce_part_c()*
+
+ConcreteBuilder1: __init__()
+ConcreteBuilder1: reset()
+ConcreteBuilder1: product() Product1
+ConcreteBuilder1: produce_part_a() 
+ConcreteBuilder1: produce_part_b()
+ConcreteBuilder1: produce_part_c()
+
+ConcreteBuilder2: __init__()
+ConcreteBuilder2: reset()
+ConcreteBuilder2: product() Product1
+ConcreteBuilder2: produce_part_a() 
+ConcreteBuilder2: produce_part_b()
+ConcreteBuilder2: produce_part_c()
+
+Product1: __init__()
+Product1: add()
+Product1: list_parts()
+
+Product2: __init__()
+Product2: add()
+Product2: list_parts()
+
+Director: __init__()
+Director: builder()
+Director: set_builder()
+Director: build_minimal_viable_product()
+Director: build_full_featured_product()
+```

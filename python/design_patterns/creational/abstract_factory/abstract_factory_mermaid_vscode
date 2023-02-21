@@ -1,0 +1,47 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+Client --> AbstractFactory
+AbstractFactory <|.. ConcreteFactory1 
+AbstractFactory <|.. ConcreteFactory2
+ConcreteFactory1 ..> ConcreteProductA1
+ConcreteFactory1 ..> ConcreteProductB1
+
+ConcreteFactory2 ..> ConcreteProductA2
+ConcreteFactory2 ..> ConcreteProductB2
+
+ConcreteProductA1 --|> AbstractProductA
+ConcreteProductA2 --|> AbstractProductA
+
+ConcreteProductB1 --|> AbstractProductB
+ConcreteProductB2 --|> AbstractProductB
+
+
+AbstractFactory: create_product_a()* AbstractProductA
+AbstractFactory: create_product_b()* AbstractProductB
+
+ConcreteFactory1: create_product_a() AbstractProductA
+ConcreteFactory1: create_product_b() AbstractProductB
+
+
+ConcreteFactory2: create_product_a() AbstractProductA
+ConcreteFactory2: create_product_b() AbstractProductB
+
+
+<<Interface>> AbstractProductA
+AbstractProductA: useful_function_a()* str
+ConcreteProductA1: useful_function_a() str
+ConcreteProductA2: useful_function_a() str
+
+<<Interface>> AbstractProductB
+AbstractProductB: useful_function_b()* str
+AbstractProductB: another_useful_function_b(collaborator AbstractProductA)*
+ConcreteProductB1: useful_function_b() str
+ConcreteProductB1: another_useful_function_b(collaborator AbstractProductA) 
+ConcreteProductB2: useful_function_b() str
+ConcreteProductB2: another_useful_function_b(collaborator AbstractProductA) 
+
+```

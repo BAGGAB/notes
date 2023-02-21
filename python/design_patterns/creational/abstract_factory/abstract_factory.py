@@ -101,8 +101,6 @@ class AbstractProductB(ABC):
 Concrete Products are created by corresponding Concrete Factories.
 """
 
-
-#refactoring.guru
 class ConcreteProductB1(AbstractProductB):
     def useful_function_b(self) -> str:
         return "The result of the product B1."

@@ -1,0 +1,24 @@
+```mermaid
+---
+title: Observable Design Pattern Example
+---
+
+classDiagram
+Creator~ABC~ <|.. ConcreteCreator1~Creator~
+Creator <|.. ConcreteCreator2~Creator~
+ConcreteProduct1~Product~ ..|> Product~ABC~
+ConcreteProduct2~Product~ ..|> Product
+ConcreteCreator1 --> ConcreteProduct1
+ConcreteCreator2 --> ConcreteProduct2
+
+Creator: factory_method()
+Creator: some_operation() str
+
+
+ConcreteCreator1: factory_method()
+ConcreteCreator2: factory_method()
+
+Product: operation()* str
+ConcreteProduct1: operation()* str
+ConcreteProduct2: operation()* str
+```
